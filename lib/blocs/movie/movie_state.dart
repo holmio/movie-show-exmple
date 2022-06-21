@@ -12,12 +12,20 @@ class MovieInitial extends MovieState {}
 
 class MovieLoading extends MovieState {}
 
-class MovieSuccess extends MovieState {
+class GetMovieByIdSuccess extends MovieState {
   final MovieModel movie;
 
-  const MovieSuccess({required this.movie});
+  const GetMovieByIdSuccess({required this.movie});
   @override
   List<Object> get props => [movie];
+}
+
+class SearchMovieByTitleSuccess extends MovieState {
+  final List<MovieDetailModel> movies;
+
+  const SearchMovieByTitleSuccess({required this.movies});
+  @override
+  List<Object> get props => [movies];
 }
 
 class MovieError extends MovieState {

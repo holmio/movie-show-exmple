@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         onPressed: () {
                           context
                               .read<MovieBloc>()
-                              .add(GetMovie(_nameController.text));
+                              .add(SearchMovieByTitle(_nameController.text));
                         },
                         child: const Text('Search'))
                     // Add TextFormFields and ElevatedButton here.
@@ -81,7 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
           const SizedBox(height: 20.0),
           BlocBuilder<MovieBloc, MovieState>(
             builder: (context, state) {
-              print(state);
               if (state is MovieInitial) {
                 return Container();
               }
@@ -93,13 +92,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 return Text(state.message ?? 'Error');
               }
 
-              if (state is MovieSuccess) {
-                return Column(
-                  children: [
-                    Text(state.movie.title!),
-                    Text(state.movie.plot!),
-                    Image.network(state.movie.poster!),
-                  ],
+              if (state is SearchMovieByTitleSuccess) {
+                return Expanded(
+                  child: ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: state.movies.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          trailing: Image.network(state.movies[index].poster!),
+                          title: Text(state.movies[index].title!),
+                          subtitle: Text(state.movies[index].year!),
+                        );
+                      }),
                 );
               }
               return Container();

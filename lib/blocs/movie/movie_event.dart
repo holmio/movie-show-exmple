@@ -7,10 +7,18 @@ abstract class MovieEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetMovie extends MovieEvent {
+class GetMovieById extends MovieEvent {
   final String id;
-  const GetMovie(this.id);
+  const GetMovieById(this.id);
 
   @override
   List<Object> get props => [id];
+}
+
+class SearchMovieByTitle extends MovieEvent {
+  final String title;
+  const SearchMovieByTitle(this.title);
+
+  @override
+  List<Object> get props => [title];
 }
